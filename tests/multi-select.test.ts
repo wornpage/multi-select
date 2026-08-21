@@ -39,8 +39,9 @@ describe('multi-select source', () => {
 		expect(source).toContain('max-inline-size: 100%;');
 		expect(source).toContain('min-inline-size: 0;');
 		expect(source).toContain('touch-action: manipulation;');
-		expect(source).toContain('@media (pointer: coarse)');
-		expect(source).toContain('font-size: 16px;');
+		const coarsePointerOverride = source.match(/@media\s*\(pointer:\s*coarse\)\s*\{([\s\S]*?)\n\t\}/u)?.[1] ?? '';
+		expect(coarsePointerOverride).toContain('.worn-multi-select {');
+		expect(coarsePointerOverride).toContain('font-size: 16px;');
 	});
 
 	test('uses the shared high-contrast field boundary and keyboard focus treatment', () => {
